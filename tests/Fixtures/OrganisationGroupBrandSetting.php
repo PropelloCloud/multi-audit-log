@@ -1,6 +1,6 @@
 <?php
 
-namespace Propello\PackageLearningS\Tests\Fixtures;
+namespace Propello\MultiAuditLog\Tests\Fixtures;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;

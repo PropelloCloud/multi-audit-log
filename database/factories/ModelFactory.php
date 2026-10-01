@@ -1,6 +1,6 @@
 <?php
 
-namespace Propello\PackageLearningS\Database\Factories;
+namespace Propello\MultiAuditLog\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

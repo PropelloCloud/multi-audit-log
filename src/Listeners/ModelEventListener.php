@@ -1,9 +1,9 @@
 <?php
 
-namespace Propello\PackageLearningS\Listeners;
+namespace Propello\MultiAuditLog\Listeners;
 
 use Illuminate\Database\Eloquent\Model;
-use Propello\PackageLearningS\AuditManager;
+use Propello\MultiAuditLog\AuditManager;
 
 class ModelEventListener
 {

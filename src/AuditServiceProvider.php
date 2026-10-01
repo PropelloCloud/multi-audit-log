@@ -1,8 +1,8 @@
 <?php
 
-namespace Propello\PackageLearningS;
+namespace Propello\MultiAuditLog;
 
-use Propello\PackageLearningS\Listeners\ModelEventListener;
+use Propello\MultiAuditLog\Listeners\ModelEventListener;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -11,7 +11,7 @@ class AuditServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('package-learning-s')
+            ->name('multi-audit-log')
             ->hasConfigFile('multi-audit-log')
             ->hasMigration('create_multi_audit_log_entries_table');
     }

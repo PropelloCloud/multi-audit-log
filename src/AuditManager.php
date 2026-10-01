@@ -1,9 +1,9 @@
 <?php
 
-namespace Propello\PackageLearningS;
+namespace Propello\MultiAuditLog;
 
 use Illuminate\Database\Eloquent\Model;
-use Propello\PackageLearningS\Models\AuditLogEntry;
+use Propello\MultiAuditLog\Models\AuditLogEntry;
 
 class AuditManager
 {

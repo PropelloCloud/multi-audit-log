@@ -1,6 +1,6 @@
 <?php
 
-// config for Propello/PackageLearningS
+// config for Propello/MultiAuditLog
 return [
 
 ];

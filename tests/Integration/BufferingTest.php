@@ -1,9 +1,9 @@
 <?php
 
-use Propello\PackageLearningS\Models\AuditLogEntry;
-use Propello\PackageLearningS\Tests\Fixtures\OrganisationGroup;
-use Propello\PackageLearningS\Tests\Fixtures\OrganisationGroupAlert;
-use Propello\PackageLearningS\Tests\Fixtures\OrganisationGroupBrandSetting;
+use Propello\MultiAuditLog\Models\AuditLogEntry;
+use Propello\MultiAuditLog\Tests\Fixtures\OrganisationGroup;
+use Propello\MultiAuditLog\Tests\Fixtures\OrganisationGroupAlert;
+use Propello\MultiAuditLog\Tests\Fixtures\OrganisationGroupBrandSetting;
 
 it('merges changes from multiple models in the same group into one entry', function () {
     OrganisationGroupAlert::create(['organisation_group_id' => 1, 'only_logged_in' => false]);

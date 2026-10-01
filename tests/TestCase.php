@@ -1,12 +1,12 @@
 <?php
 
-namespace Propello\PackageLearningS\Tests;
+namespace Propello\MultiAuditLog\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Propello\PackageLearningS\AuditServiceProvider;
-use Propello\PackageLearningS\Tests\Fixtures\OrganisationGroup;
-use Propello\PackageLearningS\Tests\Fixtures\OrganisationGroupAlert;
-use Propello\PackageLearningS\Tests\Fixtures\OrganisationGroupBrandSetting;
+use Propello\MultiAuditLog\AuditServiceProvider;
+use Propello\MultiAuditLog\Tests\Fixtures\OrganisationGroup;
+use Propello\MultiAuditLog\Tests\Fixtures\OrganisationGroupAlert;
+use Propello\MultiAuditLog\Tests\Fixtures\OrganisationGroupBrandSetting;
 
 class TestCase extends Orchestra
 {

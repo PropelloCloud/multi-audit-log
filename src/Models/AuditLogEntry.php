@@ -1,6 +1,6 @@
 <?php
 
-namespace Propello\PackageLearningS\Models;
+namespace Propello\MultiAuditLog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

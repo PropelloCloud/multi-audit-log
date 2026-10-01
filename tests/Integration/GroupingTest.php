@@ -1,9 +1,9 @@
 <?php
 
-use Propello\PackageLearningS\AuditManager;
-use Propello\PackageLearningS\Models\AuditLogEntry;
-use Propello\PackageLearningS\Tests\Fixtures\OrganisationGroupAlert;
-use Propello\PackageLearningS\Tests\Fixtures\OrganisationGroupBrandSetting;
+use Propello\MultiAuditLog\AuditManager;
+use Propello\MultiAuditLog\Models\AuditLogEntry;
+use Propello\MultiAuditLog\Tests\Fixtures\OrganisationGroupAlert;
+use Propello\MultiAuditLog\Tests\Fixtures\OrganisationGroupBrandSetting;
 
 it('records the correct group_name for a configured model', function () {
     OrganisationGroupAlert::create(['organisation_group_id' => 1]);

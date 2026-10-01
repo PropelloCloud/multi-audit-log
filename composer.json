@@ -1,12 +1,11 @@
 {
-    "name": "propellocloud/package-learning-s",
+    "name": "propellocloud/multi-audit-log",
     "description": "Project to practice laravel packages",
     "keywords": [
-        "sorayataraszka",
         "laravel",
-        "package-learning-s"
+        "multi-audit-log"
     ],
-    "homepage": "https://github.com/propellocloud/package-learning-s",
+    "homepage": "https://github.com/propellocloud/multi-audit-log",
     "license": "MIT",
     "authors": [
         {
@@ -34,13 +33,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Propello\\PackageLearningS\\": "src/",
-            "Propello\\PackageLearningS\\Database\\Factories\\": "database/factories/"
+            "Propello\\MultiAuditLog\\": "src/",
+            "Propello\\MultiAuditLog\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Propello\\PackageLearningS\\Tests\\": "tests/",
+            "Propello\\MultiAuditLog\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         },
         "files": [
@@ -65,10 +64,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Propello\\PackageLearningS\\AuditServiceProvider"
+                "Propello\\MultiAuditLog\\AuditServiceProvider"
             ],
             "aliases": {
-                "Audit": "Propello\\PackageLearningS\\Facades\\Audit"
+                "Audit": "Propello\\MultiAuditLog\\Facades\\Audit"
             }
         }
     },

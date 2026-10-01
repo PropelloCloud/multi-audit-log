@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
-use Propello\PackageLearningS\ChangeDetector;
+use Propello\MultiAuditLog\ChangeDetector;
 
 function modelWithChanges(array $changes, array $original): Model
 {

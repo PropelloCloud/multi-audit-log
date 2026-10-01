@@ -1,12 +1,12 @@
 <?php
 
-namespace Propello\PackageLearningS\Facades;
+namespace Propello\MultiAuditLog\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Propello\PackageLearningS\AuditManager;
+use Propello\MultiAuditLog\AuditManager;
 
 /**
- * @see \Propello\PackageLearningS\AuditManager
+ * @see \Propello\MultiAuditLog\AuditManager
  */
 class Audit extends Facade
 {

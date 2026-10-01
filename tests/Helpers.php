@@ -1,6 +1,6 @@
 <?php
 
-use Propello\PackageLearningS\AuditManager;
+use Propello\MultiAuditLog\AuditManager;
 
 function saveLog(): void
 {

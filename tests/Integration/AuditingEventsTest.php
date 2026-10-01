@@ -1,7 +1,7 @@
 <?php
 
-use Propello\PackageLearningS\Models\AuditLogEntry;
-use Propello\PackageLearningS\Tests\Fixtures\OrganisationGroup;
+use Propello\MultiAuditLog\Models\AuditLogEntry;
+use Propello\MultiAuditLog\Tests\Fixtures\OrganisationGroup;
 
 it('records a create event with new values and no old values', function () {
     OrganisationGroup::create(['name' => 'Test Group', 'display_name' => 'Test']);

@@ -1,5 +1,5 @@
 <?php
 
-use Propello\PackageLearningS\Tests\TestCase;
+use Propello\MultiAuditLog\Tests\TestCase;
 
 uses(TestCase::class)->in('Integration');
