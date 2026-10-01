@@ -1,59 +1,94 @@
-# Project to practice laravel packages
+# multi-audit-log
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/propellocloud/package-learning-s.svg?style=flat-square)](https://packagist.org/packages/propellocloud/package-learning-s)
-[![GitHub Tests Action Status](https://github.com/spatie/package-package-learning-s-laravel/actions/workflows/run-tests.yml/badge.svg)](https://github.com/propellocloud/package-learning-s/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://github.com/spatie/package-package-learning-s-laravel/actions/workflows/fix-php-code-style-issues.yml/badge.svg)](https://github.com/propellocloud/package-learning-s/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/propellocloud/package-learning-s.svg?style=flat-square)](https://packagist.org/packages/propellocloud/package-learning-s)
+A Laravel package that records model lifecycle events (created, updated, deleted) into a grouped audit log. Multiple related models can be merged into a single audit entry per request, giving you a clean, consolidated change history rather than one row per model.
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+## How it works
 
-## Support us
+Changes are buffered in memory throughout a request and flushed to the database in a single write at the end (via `app()->terminating()`). Models are organised into named **groups** — when multiple models in the same group change in the same request with the same group ID and event type, their changes are merged into one `AuditLogEntry` row.
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/package-learning-s.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/package-learning-s)
+## Requirements
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+- PHP 8.4+
+- Laravel 11, 12, or 13
 
 ## Installation
 
-You can install the package via composer:
-
 ```bash
-composer require propellocloud/package-learning-s
+composer require propellocloud/multi-audit-log
 ```
 
-You can publish and run the migrations with:
+Publish and run the migration:
 
 ```bash
-php artisan vendor:publish --tag="package-learning-s-migrations"
+php artisan vendor:publish --tag="multi-audit-log-migrations"
 php artisan migrate
 ```
 
-You can publish the config file with:
+Publish the config file:
 
 ```bash
-php artisan vendor:publish --tag="package-learning-s-config"
+php artisan vendor:publish --tag="multi-audit-log-config"
 ```
 
-This is the contents of the published config file:
+## Configuration
+
+Define your groups in `config/multi-audit-log.php`. Each group has a name, a `group_id_column` that identifies which column to read the group ID from, and a list of models to observe.
 
 ```php
 return [
+    'groups' => [
+        'organisation_group' => [
+            'group_id_column' => 'organisation_group_id',
+            'models' => [
+                App\Models\OrganisationGroup::class,
+                App\Models\OrganisationGroupAlert::class,
+                // Override group_id_column for a specific model:
+                App\Models\OrganisationGroupBrandSetting::class => [
+                    'group_id_column' => 'group_id',
+                ],
+            ],
+        ],
+    ],
 ];
 ```
 
-Optionally, you can publish the views using
+No further setup is required — the service provider automatically registers observers and the end-of-request flush.
 
-```bash
-php artisan vendor:publish --tag="package-learning-s-views"
-```
+## Audit log entry schema
 
-## Usage
+| Column | Type | Description |
+|---|---|---|
+| `id` | bigint | Primary key |
+| `group_name` | string | The group this entry belongs to |
+| `group_id` | string\|null | The value of the group ID column on the model |
+| `event` | enum | `created`, `updated`, or `deleted` |
+| `old_values` | json\|null | Attribute values before the change |
+| `new_values` | json\|null | Attribute values after the change |
+| `user_id` | bigint\|null | The authenticated user at the time of the event |
+| `created_at` | timestamp | When the entry was written |
+
+## Behaviour
+
+**Buffering and merging** — when multiple models in the same group share a `group_id` and event type within a single request, their attribute changes are merged into one entry. For example, creating an `OrganisationGroupAlert` and an `OrganisationGroupBrandSetting` with the same `group_id` in the same request produces one `created` entry.
+
+**Separate entries are produced** when:
+- The `group_id` differs between models.
+- The event type differs (e.g., one model is updated and another is deleted).
+
+**`updated_at`-only changes are ignored** — touching a model without changing any other attributes writes nothing to the log.
+
+**Type-safe change detection** — booleans are compared as integers and numeric strings are compared as floats, so superficial type differences don't generate spurious entries.
+
+**Models not in any configured group are silently ignored.**
+
+## Manually flushing the buffer
+
+The buffer is flushed automatically at the end of every request. If you need to flush it early (e.g., in a long-running job), you can do so via the facade or the container:
 
 ```php
-$packageLearningS = new Sorayataraszka\PackageLearningS();
-echo $packageLearningS->echoPhrase('Hello, Sorayataraszka!');
+use Propello\MultiAuditLog\Facades\Audit;
+
+Audit::saveBufferedLog();
 ```
 
 ## Testing
@@ -64,21 +99,8 @@ composer test
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
-## Credits
-
-- [sorayataraszka](https://github.com/PropelloCloud)
-- [All Contributors](../../contributors)
+Please see [CHANGELOG](CHANGELOG.md) for recent changes.
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [LICENSE](LICENSE.md) for details.
