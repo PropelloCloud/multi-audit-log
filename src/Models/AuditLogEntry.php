@@ -4,6 +4,14 @@ namespace Propello\PackageLearningS\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string $group_name
+ * @property string|null $group_id
+ * @property string $event
+ * @property array|null $old_values
+ * @property array|null $new_values
+ * @property int|null $user_id
+ */
 class AuditLogEntry extends Model
 {
     const UPDATED_AT = null;
