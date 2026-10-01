@@ -35,8 +35,11 @@ class TestCase extends Orchestra
         OrganisationGroup::createTable();
         OrganisationGroupAlert::createTable();
         OrganisationGroupBrandSetting::createTable();
+
+        foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '/../database/migrations') as $migration) {
             (include $migration->getRealPath())->up();
-         }
-         */
+        }
+
+
     }
 }
