@@ -1,3 +1,3 @@
 # Changelog
 
-All notable changes to `package-learning-s` will be documented in this file.
+All notable changes to `multi-audit-log` will be documented in this file.

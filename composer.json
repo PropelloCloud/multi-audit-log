@@ -1,6 +1,6 @@
 {
     "name": "propellocloud/multi-audit-log",
-    "description": "Project to practice laravel packages",
+    "description": "A Laravel package for grouped, buffered audit logging across multiple models",
     "keywords": [
         "laravel",
         "multi-audit-log"
